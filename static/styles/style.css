@@ -1,0 +1,26 @@
+#logo {
+	max-width: 200px;
+	margin-bottom: 0.5em;
+}
+
+#top-nav {
+	background-color: #5B5B5B;
+}
+
+.company {
+	border: 1px solid #000000;
+	border-radius: 10px;
+	background: #E3E3E3;
+	width: 70%;
+	min-height: 6em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#company_logo {
+	
+}
+
+#company_name {
+	font-weight: bold;
+}

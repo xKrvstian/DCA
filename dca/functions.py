@@ -1,5 +1,6 @@
 from functools import wraps
 from flask import request, jsonify
+from .config import Config
 import jwt
 
 def sql_to_json(cur):
@@ -24,7 +25,7 @@ def token_required(f):
 			return jsonify(Error="A valid token is missing")
 
 		try:
-			data = jwt.decode(token, "test", algorithms=["HS256"])
+			data = jwt.decode(token, Config.SECRET_KEY, algorithms=["HS256"])
 		except:
 			return jsonify(Error="Token is invalid")
 

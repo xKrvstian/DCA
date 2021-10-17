@@ -1,6 +1,9 @@
 from flask import Blueprint,jsonify
 from .database import mydb
 from .functions import *
+from .config import Config
+import bcrypt
+import datetime
 
 cur = mydb.cursor()
 
@@ -42,7 +45,7 @@ def login_user():
 		hashed = data[4]
 		#token = jwt.encode({'id' : data[0], 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=45)}, 'test', "HS256")a
 		if(bcrypt.checkpw(str.encode(user_pass), str.encode(hashed))):
-			token = jwt.encode({'id':data[0], 'username':data[1], 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=1440)}, 'test', "HS256")
+			token = jwt.encode({'id':data[0], 'username':data[1], 'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=1440)}, Config.SECRET_KEY, "HS256")
 			return jsonify(Token=token)
 		else:
 			return jsonify(Error="Invalid username or password"), 401
