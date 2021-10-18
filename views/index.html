@@ -20,21 +20,27 @@
 		</div>
 		
 		<div class="row">
-			<div class="col-4 center-block text-center">
+			{% for d in data %}
+				{% set employees = emp_data[d['name']] %}
+				{% set opened = open[d['name']] %}
+				{% set wait = waiting[d['name']] %}
+				{% set close = closed[d['name']] %}
+				{% set image = 'images/'+d['logo'] %}
+			<div class="col-4 center-block text-center">		
 				<div class="company">
-					<a href="/requests?company_id=1" id="company_link">
+					<a href="/requests?company_id={{ d['id'] }}" id="company_link">
 						<div class="row" style="margin: 0.2em">
 							<div class="col-4">
-								<div id="company_logo"><img src="{{ url_for('static', filename='images/deicide.png') }}"></div>
+								<div id="company_logo"><img src="{{ url_for('static', filename=image) }}"></div>
 							</div>
 							<div class="col-8">
-								<div id="company_name">Deicide</div>
+								<div id="company_name">{{ d['name'] }}</div>
 								<div id="company_info">
 									<ul id="company_info" style="text-align: left">
-										<li>Employees: 1</li>
-										<li>Open requests: 0</li>
-										<li>Waiting requests: 4</li>
-										<li>Closed requests: 25</li>
+										<li>Employees: {{ employees }}</li>
+										<li>Open requests: {{ opened }}</li>
+										<li>Waiting requests: {{ wait }}</li>
+										<li>Closed requests: {{ close }}</li>
 									</ul>
 								</div>
 							</div>
@@ -42,6 +48,7 @@
 					</a>
 				</div>
 			</div>
+			{% endfor %}
 		</div>
 	</div>
 </body>

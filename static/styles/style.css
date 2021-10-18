@@ -28,14 +28,37 @@
 }
 
 div#company_info {
-	font-size: 10px;
+	font-size: 12px;
 }
 
-ul#company_info {
+ul#company_info, ul#request_info {
 	list-style: none;
 }
 
 #company_link {
 	color: #000;
 	text-decoration: none;
+}
+
+#request {
+	border: 1px solid #000;
+}
+
+#request_header {
+	height: 2.3em;
+	background: #FFEAEA;
+	border-bottom: 1px solid #000;
+	font-weight: bold;
+	font-size: 20px;
+} #request_header h4 {
+	padding: 10px;
+}
+
+div#request_info {
+	padding: 10px;
+	border-bottom: 1px solid #000;
+}
+
+#request_body {
+	padding: 10px;
 }

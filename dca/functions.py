@@ -41,3 +41,12 @@ def get_company_name(id):
 	data = cur.fetchone()
 
 	return data[1]
+
+def get_employee_data(id):
+	q = """ SELECT * FROM employees WHERE id = '%s' """ % id
+	cur.execute(q)
+	data = cur.fetchall()
+	if(len(data) < 1):
+		return "none"
+	else:
+		return data[0]
