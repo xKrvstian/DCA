@@ -59,7 +59,7 @@ def get_requests():
 			employee = x['employee_id']
 		else:
 			employee = "%s %s" % (emp[1], emp[2])
-		req = (x['id'], x['date'], x['title'], company_name, employee)
+		req = (x['id'], x['date'], x['title'], company_name, employee, x['status'])
 		r.append(req)
 
 	return render_template('requests.html', requests=r)
