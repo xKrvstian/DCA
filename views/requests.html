@@ -22,16 +22,25 @@
 						<th scope="col">Title</th>
 						<th scope="col">Company</th>
 						<th scope="col">User</th>
+						<th scope="col">Status</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for r in requests %}
+					{% if r[5] == "OPEN" %}
+						{% set class="open" %}
+					{% elif r[5] == "WAITING" %}
+						{% set class="waiting" %}
+					{% elif r[5] == "CLOSED" %}
+						{% set class="closed" %}
+					{% endif %}
 					<tr>
 						<th scope="row">{{ r[0] }}</th>
 						<td><a href="requests/{{ r[0] }}">{{ r[1] }}</a></td>
 						<td><a href="requests/{{ r[0] }}">{{ r[2] }}</a></td>
 						<td>{{ r[3] }}</td>
 						<td>{{ r[4] }}</td>
+						<td class="{{ class }}">{{ r[5]|capitalize }}</td>
 					</tr>
 					{% endfor %}
 				</tbody>

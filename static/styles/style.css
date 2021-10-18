@@ -40,6 +40,14 @@ ul#company_info, ul#request_info {
 	text-decoration: none;
 }
 
+.open {
+	color: #00AC00;
+} .waiting {
+	color: #009AE6;
+} .closed {
+	color: #FF0000;
+}
+
 #request {
 	border: 1px solid #000;
 }
