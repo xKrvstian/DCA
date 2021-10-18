@@ -1,7 +1,10 @@
 from functools import wraps
 from flask import request, jsonify
 from .config import Config
+from .database import mydb
 import jwt
+
+cur = mydb.cursor()
 
 def sql_to_json(cur):
 	rv = cur.fetchall()
@@ -31,3 +34,10 @@ def token_required(f):
 
 		return f(*args, **kwargs)
 	return decorator
+
+def get_company_name(id):
+	q = """ SELECT * FROM companies WHERE id = '%s' """ % id
+	cur.execute(q)
+	data = cur.fetchone()
+
+	return data[1]

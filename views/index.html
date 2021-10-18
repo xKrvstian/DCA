@@ -22,15 +22,24 @@
 		<div class="row">
 			<div class="col-4 center-block text-center">
 				<div class="company">
-					<div class="row" style="margin: 0.2em">
-						<div class="col-4">
-							<div id="company_logo"><img src="asdasd"></div>
+					<a href="/requests?company_id=1" id="company_link">
+						<div class="row" style="margin: 0.2em">
+							<div class="col-4">
+								<div id="company_logo"><img src="{{ url_for('static', filename='images/deicide.png') }}"></div>
+							</div>
+							<div class="col-8">
+								<div id="company_name">Deicide</div>
+								<div id="company_info">
+									<ul id="company_info" style="text-align: left">
+										<li>Employees: 1</li>
+										<li>Open requests: 0</li>
+										<li>Waiting requests: 4</li>
+										<li>Closed requests: 25</li>
+									</ul>
+								</div>
+							</div>
 						</div>
-						<div class="col-8">
-							<div id="company_name">Deicide</div>
-							<div id="company_info">XDXD</div>
-						</div>
-					</div>
+					</a>
 				</div>
 			</div>
 		</div>

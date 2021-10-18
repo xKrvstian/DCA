@@ -3,3 +3,4 @@ class Config(object):
 	ENV = "dev"
 	DEBUG = True
 	SQLALCHEMY_DATABASE_URI = "mysql://dca:7asdhk12@localhost/dca"
+	APP_DIR = "/home/glasn0st/projects/DCA"

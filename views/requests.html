@@ -1,0 +1,40 @@
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>DCA - Deicide Core Application</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/bootstrap/css/bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body>
+	<div class="container-fluid" style="margin-bottom: 1em">
+		<div class="row text-center" id="top-nav">
+			<img id="logo" class="rounded mx-auto d-block" src="{{ url_for('static', filename='images/DCA.png') }}">
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Date</th>
+						<th scope="col">Title</th>
+						<th scope="col">Company</th>
+						<th scope="col">Employee</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for r in requests %}
+					<tr>
+						<th scope="row">{{ r[0] }}</th>
+						<td>{{ r[1] }}</td>
+						<td>{{ r[2] }}</td>
+						<td>{{ r[3] }}</td>
+						<td>{{ r[4] }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>

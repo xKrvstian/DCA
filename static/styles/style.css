@@ -15,12 +15,27 @@
 	min-height: 6em;
 	margin-left: auto;
 	margin-right: auto;
+}.company:hover {
+	background: #ECECEC;
 }
 
-#company_logo {
-	
+#company_logo img {
+	max-height: 100px;
 }
 
 #company_name {
 	font-weight: bold;
+}
+
+div#company_info {
+	font-size: 10px;
+}
+
+ul#company_info {
+	list-style: none;
+}
+
+#company_link {
+	color: #000;
+	text-decoration: none;
 }
