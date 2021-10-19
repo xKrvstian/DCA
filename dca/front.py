@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from .database import mydb
-from .functions import get_company_name, get_employee_data, get_user_data
+from .functions import get_company_name, get_employee_data, get_user_data   #chuj
 import datetime
 
 frontend = Blueprint("frontend", __name__)
