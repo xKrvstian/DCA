@@ -67,6 +67,15 @@ div#request_info {
 	border-bottom: 1px solid #000;
 }
 
-#request_body {
+div#request_body {
 	padding: 10px;
+}
+
+textarea#req_text {
+	width: 100%;
+}
+
+#message {
+	border: 1px solid #000;
+	background: #E8E8E8;
 }

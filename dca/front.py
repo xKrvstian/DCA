@@ -73,5 +73,35 @@ def get_request(req_id):
 		req_data = "none"
 	else:
 		req_data = data[0]
+		company = get_company_name(req_data['company_id'])
+		emp = get_employee_data(req_data['employee_id'])
+		if(emp == "none"):
+			employee = req_data['employee_id']
+		else:
+			employee = "%s %s" % (emp[1], emp[2])
+
+		req_data['employee'] = employee
+		req_data['company'] = company
 
 	return render_template("request.html", req_data=req_data)
+	
+@frontend.route("/requests/<req_id>/update")
+def edit_request(req_id):
+	query = """ SELECT * FROM requests WHERE id = '%s' """ % req_id
+	cur.execute(query)
+	data = cur.fetchall()
+	if(len(data) < 1):
+		req_data = "none"
+	else:
+		req_data = data[0]
+		company = get_company_name(req_data['company_id'])
+		emp = get_employee_data(req_data['employee_id'])
+		if(emp == "none"):
+			employee = req_data['employee_id']
+		else:
+			employee = "%s %s" % (emp[1], emp[2])
+
+		req_data['employee'] = employee
+		req_data['company'] = company
+
+	return render_template("updaterequest.html", req_data=req_data)

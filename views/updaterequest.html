@@ -1,4 +1,10 @@
 {% include "header.html" %}
+
+<script>
+      tinymce.init({
+        selector: '#req_text'
+      });
+</script>
 	
 	<div class="container">
 		<div id="request">
@@ -9,7 +15,8 @@
 							<h4>{{ req_data['title'] }}</h4>
 						</div>
 						<div class="col-2">
-							<a style="float: right; margin: 3px" class="btn btn-primary" href="/requests/{{ req_data['id'] }}/update">Update</a>
+							<a style="float: right; margin: 3px" class="btn btn-primary" href="/requests/{{ req_data['id'] }}/update">Save</a>
+							<a style="float: right; margin: 3px" class="btn btn-danger" href="/requests/{{ req_data['id'] }}">Cancel</a>
 						</div>
 					</div>
 				</div>
@@ -20,7 +27,14 @@
 						<div class="col-6">
 							<ul id="request_info">
 								<li>Request created: {{ req_data['date'] }}</li>
-								<li>State: <span class="{{ req_data['status']|lower }}">{{ req_data['status']|capitalize }}</span></li>
+								<li>
+									State:
+									<select name="state">
+										<option value="OPEN" class="open" {% if req_data['status'] == "OPEN" %} selected {% endif %}>Open</option>
+										<option value="WAITING" class="waiting" {% if req_data['status'] == "WAITING" %} selected {% endif %}>Waiting</option>
+										<option value="CLOSED" class="closed" {% if req_data['status'] == "CLOSED" %} selected {% endif %}>Closed</option>
+									</select>
+								</li>
 							</ul>
 						</div>
 						<div class="col-6">
@@ -34,9 +48,9 @@
 			</div>
 			<div id="request_body">
 				<h4 style="margin-bottom: 1em">Request message:</h4>
-				<div id="message">
-					{{ req_data['body']|safe }}
-				</div>
+				<textarea name="body" id="req_text">
+					{{ req_data['body'] }}
+				</textarea>
 			</div>
 		</div>
 	</div>

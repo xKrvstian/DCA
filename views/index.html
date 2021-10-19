@@ -1,16 +1,4 @@
-<html lang="pl">
-<head>
-<meta charset="utf-8">
-<title>DCA - Deicide Core Application</title>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/bootstrap/css/bootstrap.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
-</head>
-<body>
-	<div class="container-fluid" style="margin-bottom: 1em">
-		<div class="row text-center" id="top-nav">
-			<img id="logo" class="rounded mx-auto d-block" src="{{ url_for('static', filename='images/DCA.png') }}">
-		</div>
-	</div>
+{% include "header.html" %}
 	
 	<div class="container">
 		<div class="row">
