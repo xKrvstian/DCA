@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from .database import mydb
-from .functions import get_company_name, get_employee_data
+from .functions import get_company_name, get_employee_data, get_user_data
+import datetime
 
 frontend = Blueprint("frontend", __name__)
 cur = mydb.cursor(dictionary=True)
@@ -82,26 +83,68 @@ def get_request(req_id):
 
 		req_data['employee'] = employee
 		req_data['company'] = company
-
-	return render_template("request.html", req_data=req_data)
-	
-@frontend.route("/requests/<req_id>/update")
-def edit_request(req_id):
-	query = """ SELECT * FROM requests WHERE id = '%s' """ % req_id
+		
+	query = """ SELECT * FROM notes WHERE request_id = '%s' """ % req_id
 	cur.execute(query)
 	data = cur.fetchall()
+	notes = []
 	if(len(data) < 1):
-		req_data = "none"
+		note = "none"
 	else:
-		req_data = data[0]
-		company = get_company_name(req_data['company_id'])
-		emp = get_employee_data(req_data['employee_id'])
-		if(emp == "none"):
-			employee = req_data['employee_id']
+		note = data
+		for n in note:
+			user = get_user_data(n['author'])
+			notes.append((n['id'], user[1], n['date'], n['note']))
+
+	return render_template("request.html", req_data=req_data, notes=notes)
+
+@frontend.route("/requests/<req_id>/addnote", methods=['POST'])
+def add_note(req_id):
+	user_id = 1
+	note = request.form.get("note_body")
+	x = datetime.datetime.now()
+	date = x.strftime("%Y-%m-%d %H:%M:%S")
+	query = """ INSERT INTO notes(request_id, author, date, note) VALUES('%s', '%s', '%s', '%s') """ % (req_id, user_id, date, note)
+	
+	cur.execute(query)
+	url = "/requests/%s" % req_id
+	
+	return redirect(url_for('frontend.get_request', req_id=req_id), 302)
+	
+@frontend.route("/requests/<req_id>/update", methods=['GET', 'POST'])
+def edit_request(req_id):
+	if(request.method == "GET"):
+		query = """ SELECT * FROM requests WHERE id = '%s' """ % req_id
+		cur.execute(query)
+		data = cur.fetchall()
+		if(len(data) < 1):
+			req_data = "none"
 		else:
-			employee = "%s %s" % (emp[1], emp[2])
+			req_data = data[0]
+			company = get_company_name(req_data['company_id'])
+			emp = get_employee_data(req_data['employee_id'])
+			if(emp == "none"):
+				employee = req_data['employee_id']
+			else:
+				employee = "%s %s" % (emp[1], emp[2])
 
-		req_data['employee'] = employee
-		req_data['company'] = company
+			req_data['employee'] = employee
+			req_data['company'] = company
 
-	return render_template("updaterequest.html", req_data=req_data)
+		return render_template("updaterequest.html", req_data=req_data)
+	elif(request.method == "POST"):
+		status = request.form.get("state")
+		body = request.form.get("body")
+		query = """ UPDATE requests SET body='%s',status='%s' WHERE id='%s' """ % (body, status, req_id)
+		url = "/requests/%s" % req_id
+		cur.execute(query)
+		
+		return redirect(url_for('frontend.get_request', req_id=req_id), 302)
+		
+@frontend.route("/requests/<req_id>/notes/<note_id>/delete")
+def delete_note(req_id, note_id):
+	query = """ DELETE FROM notes WHERE id = '%s' """ % note_id
+	cur.execute(query)
+
+	url = "/requests/%s" % req_id
+	return redirect(url_for('frontend.get_request', req_id=req_id), 302)

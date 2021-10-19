@@ -79,3 +79,30 @@ textarea#req_text {
 	border: 1px solid #000;
 	background: #E8E8E8;
 }
+
+#notes {
+	border: 1px solid #000;
+	background: #FAF6BD;
+}
+
+#notes_header {
+	height: 2em;
+	background: #FFF56B;
+	border-bottom: 1px solid #000;
+	font-weight: bold;
+	font-size: 15px;
+} #notes_header h4 {
+	padding: 8px;
+	font-size: 15px;
+}
+
+#note {
+	margin-top: 5px;
+}
+
+div#note_info {
+	border-right: 1px solid #656565;
+} ul#note_info {
+	list-style: none;
+	padding: 0;
+}

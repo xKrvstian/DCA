@@ -50,3 +50,12 @@ def get_employee_data(id):
 		return "none"
 	else:
 		return data[0]
+		
+def get_user_data(id):
+	q = """ SELECT * FROM users WHERE id = '%s' """ % id
+	cur.execute(q)
+	data = cur.fetchall()
+	if(len(data) < 1):
+		return "none"
+	else:
+		return data[0]

@@ -1,6 +1,6 @@
 {% include "header.html" %}
 	
-	<div class="container">
+	<div class="container" style="margin-bottom: 3em">
 		<div id="request">
 			<div id="request_header">
 				<div class="container">
@@ -10,6 +10,7 @@
 						</div>
 						<div class="col-2">
 							<a style="float: right; margin: 3px" class="btn btn-primary" href="/requests/{{ req_data['id'] }}/update">Update</a>
+							<a style="float: right; margin: 3px" class="btn btn-secondary" href="/requests">Back</a>
 						</div>
 					</div>
 				</div>
@@ -36,6 +37,51 @@
 				<h4 style="margin-bottom: 1em">Request message:</h4>
 				<div id="message">
 					{{ req_data['body']|safe }}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row" style="margin-bottom: 1em">
+			<div class="col-12">
+				<div id="notes">
+					<div id="notes_header"><h4>Request notes</h4></div>
+					<div id="notes_body">
+						{% for n in notes %}
+						<div id="note">
+							<div class="container">
+								<div class="row">
+									<div class="col-2">
+										<div id="note_info">
+											<ul id="note_info">
+												<li>{{ n[1] }}</li>
+												<li>{{ n[2] }}</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-9">
+										<div id="note_body">
+											{{ n[3] }}
+										</div>
+									</div>
+									<div class="col-1">
+										<a href="/requests/{{ req_data['id'] }}/notes/{{ n[0] }}/delete" class="btn btn-danger">x</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="container">
+				<div class="col-12">
+					<form method="POST" action="/requests/{{ req_data['id'] }}/addnote">
+						<textarea name="note_body" style="width: 100%"></textarea>
+						<input class="btn btn-primary" type="submit" value="Add note">
+					</form>
 				</div>
 			</div>
 		</div>
