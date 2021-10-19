@@ -107,6 +107,7 @@ def add_note(req_id):
 	query = """ INSERT INTO notes(request_id, author, date, note) VALUES('%s', '%s', '%s', '%s') """ % (req_id, user_id, date, note)
 	
 	cur.execute(query)
+	mydb.commit()
 	url = "/requests/%s" % req_id
 	
 	return redirect(url_for('frontend.get_request', req_id=req_id), 302)
@@ -138,6 +139,7 @@ def edit_request(req_id):
 		query = """ UPDATE requests SET body='%s',status='%s' WHERE id='%s' """ % (body, status, req_id)
 		url = "/requests/%s" % req_id
 		cur.execute(query)
+		mydb.commit()
 		
 		return redirect(url_for('frontend.get_request', req_id=req_id), 302)
 		
@@ -145,6 +147,7 @@ def edit_request(req_id):
 def delete_note(req_id, note_id):
 	query = """ DELETE FROM notes WHERE id = '%s' """ % note_id
 	cur.execute(query)
+	mydb.commit()
 
 	url = "/requests/%s" % req_id
 	return redirect(url_for('frontend.get_request', req_id=req_id), 302)
